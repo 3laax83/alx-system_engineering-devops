@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-for i in {1..10}
-  do
-    echo "Best School"
-  done
+# we create i to loop for 10 times
+for i in {0..9}; do
+	echo "Best School"
+done
