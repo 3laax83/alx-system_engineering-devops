@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # we create i to loop for 10 times
 i=0
 while [ $i -le 10 ]; do
