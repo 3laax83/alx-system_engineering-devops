@@ -1,0 +1,7 @@
+Host *
+  IgnoreUnknown AddKeysToAgent, UseKeyChain
+  AddKeysToAgent yes
+  UseKeyChain yes
+  IdentifyFile ~/.ssh/id_rsa
+  IdentifyFile ~/.ssh/codingschool
+  PasswordAuthentication no
