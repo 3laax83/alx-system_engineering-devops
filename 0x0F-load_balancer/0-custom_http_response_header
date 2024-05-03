@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Configure Nginx so that its HTTP response contains a custom header (on web-01 and web-02)
+
+sudo su <<EOF
+apt update;
+apt install nginx
+ufw allow 'Nginx HTTP'
+
+if [ -d "/var/www" ]
+then
+  mkdir -p /var/www
+fi
+
+chwon -R "$USER":"$USER" /var/www
+chmod -R 777 /var/www
+
+for dir in /var/www/{html,error}
+do
+  if ! [ -d "$dir" ]
+  then
+    mkdir -p "$dir"
+  fi
+done
+
+
+EOF
