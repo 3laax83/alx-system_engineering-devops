@@ -3,7 +3,7 @@
 exec { 'update-apt':
   command   => 'apt-get -y update',
   user      => 'root',
-  provider  => 'bash',
+  provider  => 'shell',
   }
 ->
 package { 'nginx':
