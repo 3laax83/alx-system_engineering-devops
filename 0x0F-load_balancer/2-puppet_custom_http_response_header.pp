@@ -1,25 +1,22 @@
 # Automate the task #0 with puppet
 
 exec { 'update-apt':
-  command   => 'apt-get update',
-  user      => 'root',
-  provider  => 'shell',
+  command   => 'sudo apt-get update',
+  provider  => shell,
   }
 
 package { 'nginx':
   ensure    => present,
-  provider  => 'apt',
 }
 
 file_line { 'Add-HTTP-HEADER':
   ensure    => 'present',
   path      => '/etc/nginx/sites-available/default',
   after     => 'listen 80 default_server',
-  line      => 'add_header X-Served-By $hostname',
+  line      => 'add_header X-Served-By ${hostname}',
   }
 
-service { 'nginx':
-  ensure    => 'running',
-  enable    => true,
-  require   => Package['nginx'],
-  }
+exec { 'nginx-service':
+  command	=> 'sudo service nginx restart',
+  provider => shell,
+ }
