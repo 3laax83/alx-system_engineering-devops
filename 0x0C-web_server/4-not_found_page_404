@@ -2,8 +2,9 @@
 # A bash script to install nginx server
 
 sudo -s <<EOF
-apt-get -y update
-apt-get -y install nginx
+apt-get update -y
+apt-get install nginx -y
+service nginx start
 echo 'Hello World!' >/var/www/html/index.nginx-debian.html
 chmod 755 /etc/nginx/sites-available/default
 sed -i '/server_name _;/a\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
