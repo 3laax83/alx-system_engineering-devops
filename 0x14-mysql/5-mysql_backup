@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# backup and compress database
+
+day=$(date + "%d")
+month=$(date + "%m")
+year=$(date + "%y")
+f="$day-$month-$year.tar.gz"
+mysqldump --all-databases -u root --password="$1" >bckup.sql
+tar -czvf "$f" bckup.sql
