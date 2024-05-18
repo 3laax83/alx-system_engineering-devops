@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # backup and compress database
 
-dte=$(date + "%d-%m-%Y")
 mysqldump -u root --password="$1" -A -E >backup.sql
-tar -czvf "$dte".tar.gz backup.sql
+file_name="$(date + "%d-%m-%Y").tar.gz"
+tar -czvf "$file_name" backup.sql
