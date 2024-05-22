@@ -22,7 +22,7 @@ if __name__ == "__main__":
     tasks = list(filter(lambda x: x.get("userId") == id, taskReq))
     compTasks = list(filter(lambda x: x.get("completed"), tasks))
     print(
-        "Employee {} is done with tasks {}/{}".format(
+        "Employee {} is done with tasks ({}/{})".format(
             empName, len(compTasks), len(tasks)
         )
     )
