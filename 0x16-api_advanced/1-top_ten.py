@@ -1,9 +1,24 @@
 #!/usr/bin/python3
+"""Exporting csv files"""
+
+import json
+import requests
 import sys
 
-if __name__ == "__main__":
-    top_ten = __import__("1-top_ten").top_ten
-    if len(sys.argv) < 2:
-        print("Please pass an argument for the subreddit to search.")
+
+def top_ten(subreddit):
+    """Read reddit API and return top 10 hotspots"""
+    username = "ledbag123"
+    password = "Reddit72"
+    user_pass_dict = {"user": username, "passwd": password, "api_type": "json"}
+    headers = {"user-agent": "/u/ledbag123 API Python for Holberton School"}
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    client = requests.session()
+    client.headers = headers
+    r = client.get(url, allow_redirects=False)
+    if r.status_code == 200:
+        list_titles = r.json()["data"]["children"]
+        for a in list_titles[:10]:
+            print(a["data"]["title"])
     else:
-        top_ten(sys.argv[1])
+        return print("None")

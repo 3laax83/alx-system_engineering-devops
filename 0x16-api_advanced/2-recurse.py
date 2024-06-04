@@ -1,14 +1,29 @@
 #!/usr/bin/python3
+"""Exporting csv files"""
+
+import json
+import requests
 import sys
 
-if __name__ == "__main__":
-    recurse = __import__("2-recurse").recurse
-    if len(sys.argv) < 2:
-        print("Please pass an argument for the subreddit to search.")
-    else:
-        result = recurse(sys.argv[1])
-        if result is not None:
-            print(result)
-            print(len(result))
+
+def recurse(subreddit, host_list=[], after="null"):
+    """Read reddit API and return top 10 hotspots"""
+    username = "ledbag123"
+    password = "Reddit72"
+    user_pass_dict = {"user": username, "passwd": password, "api_type": "json"}
+    headers = {"user-agent": "/u/ledbag123 API Python for Holberton School"}
+    payload = {"limit": "100", "after": after}
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    client = requests.session()
+    client.headers = headers
+    r = client.get(url, allow_redirects=False, params=payload)
+    if r.status_code == 200:
+        list_titles = r.json()["data"]["children"]
+        after = r.json()["data"]["after"]
+        if after is not None:
+            host_list.append(list_titles[len(host_list)]["data"]["title"])
+            recurse(subreddit, host_list, after)
         else:
-            print("None")
+            return host_list
+    else:
+        return None
